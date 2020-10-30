@@ -34,10 +34,8 @@ public class UserController {
 				res.getWriter().println(new ObjectMapper().writeValueAsString(user));
 			} catch (IOException e) {
 			}
-//			 "html/home.html";
 		}
 		else {
-//			 "html/login.html";
 		}
 	}
 }

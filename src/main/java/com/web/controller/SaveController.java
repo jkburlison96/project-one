@@ -23,17 +23,32 @@ public class SaveController {
 		us = new UserService();
 	}
 
+	public void updateStatus(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		try {
+			ObjectMapper om = new ObjectMapper();
+			JsonNode jsonNode = om.readTree(req.getInputStream());
+			int id = jsonNode.get("id").asInt(0);
+			String status = jsonNode.get("status").asText();
+			if (id > 0 && status != null) {
+				rs.updateStatus(id, status);
+				res.getWriter().println("the user is added");
+			}
+		} catch (IOException e) {
+			res.getWriter().println("something went wrong");
+		}
+
+	}
+
 	public void saveReimbursement(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		try {
 //			Reimbursement r = new ObjectMapper().readValue(req.getInputStream(), Reimbursement.class);
 			ObjectMapper om = new ObjectMapper();
 			JsonNode jsonNode = om.readTree(req.getInputStream());
 			System.out.println(jsonNode.get("type").get("type").asText());
-			Reimbursement r = new Reimbursement.ReimbursementBuilder(jsonNode.get("amount").asInt(), 
-					jsonNode.get("description").asText(), jsonNode.get("author").asText(), 
-					new ReimbursementStatus("PENDING"),
-					new ReimbursementType(jsonNode.get("type").get("type").asText()))
-					.build();
+			Reimbursement r = new Reimbursement.ReimbursementBuilder(jsonNode.get("id").asInt(),
+					jsonNode.get("amount").asInt(), jsonNode.get("description").asText(),
+					jsonNode.get("author").asText(), new ReimbursementStatus("PENDING"),
+					new ReimbursementType(jsonNode.get("type").get("type").asText())).build();
 			rs.save(r);
 			res.getWriter().println("the reimbursement was added");
 		} catch (IOException e) {
@@ -41,7 +56,7 @@ public class SaveController {
 			res.getWriter().println("something went wrong");
 		}
 	}
-	
+
 	public void saveUser(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		try {
 			User u = new ObjectMapper().readValue(req.getInputStream(), User.class);

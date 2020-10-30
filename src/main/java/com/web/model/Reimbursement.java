@@ -1,6 +1,7 @@
 package com.web.model;
 
 public class Reimbursement {
+	private final int id;
 	private final int amount;
 	private final String submitted;
 	private final String resolved;
@@ -12,6 +13,7 @@ public class Reimbursement {
 	private final ReimbursementType type;
 	
 	public Reimbursement(ReimbursementBuilder builder) {
+		this.id = builder.id;
 		this.amount = builder.amount;
 		this.submitted = builder.submitted;
 		this.resolved = builder.resolved;
@@ -21,6 +23,10 @@ public class Reimbursement {
 		this.resovler = builder.resovler;
 		this.status = builder.status;
 		this.type = builder.type;
+	}
+	
+	public int getID() {
+		return id;
 	}
 	
 	public int getAmount() {
@@ -60,6 +66,7 @@ public class Reimbursement {
 	}
 
 	public static class ReimbursementBuilder{
+		private final int id;
 		private final int amount;
 		private  String submitted; //optional
 		private  String resolved; //optional
@@ -70,7 +77,8 @@ public class Reimbursement {
 		private final  ReimbursementStatus status;
 		private final  ReimbursementType type;
 		
-		public ReimbursementBuilder(int amount, String description, String author, ReimbursementStatus status, ReimbursementType type) {
+		public ReimbursementBuilder(int id, int amount, String description, String author, ReimbursementStatus status, ReimbursementType type) {
+			this.id = id;
 			this.amount = amount;
 			this.description = description;
 			this.author = author;

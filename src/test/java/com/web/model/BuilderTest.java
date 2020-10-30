@@ -20,7 +20,7 @@ public class BuilderTest {
 	public void buildReimbursment() {
 		ReimbursementStatus rs = new ReimbursementStatus("Pending");
 		ReimbursementType rt = new ReimbursementType("Travel");
-		Reimbursement r = new Reimbursement.ReimbursementBuilder(100, "desc", "Bob.emp", rs, rt)
+		Reimbursement r = new Reimbursement.ReimbursementBuilder(1, 100, "desc", "Bob.emp", rs, rt)
 				.submitted("10-23-2020")
 				.build();
 		assertTrue(r.getAmount() == 100);

@@ -14,6 +14,10 @@ public class UserService {
 		return ud.findByUsernamePassword(username, password);
 	}
 	
+	public int getID(String username) {
+		return ud.getID(username);
+	}
+	
 	public int save(User u) {
 		return ud.create(u);
 	}

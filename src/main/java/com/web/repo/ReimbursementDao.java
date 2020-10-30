@@ -1,8 +1,7 @@
 package com.web.repo;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,11 +26,12 @@ public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 				PreparedStatement ps = conn.prepareStatement(sql)) {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				reimbs.add(new Reimbursement.ReimbursementBuilder(rs.getInt(1), rs.getString(2), rs.getString(3), 
-						new ReimbursementStatus(rs.getString(4)), new ReimbursementType(rs.getString(5)))
-						.submitted(rs.getString(6))
-						.resolved(rs.getString(7))
-						.receipt(rs.getString(8))
+				reimbs.add(new Reimbursement.ReimbursementBuilder(rs.getInt(1), rs.getInt(2), 
+						rs.getString(3), rs.getString(4), 
+						new ReimbursementStatus(rs.getString(5)), new ReimbursementType(rs.getString(6)))
+						.submitted(rs.getString(7))
+						.resolved(rs.getString(8))
+						.receipt(rs.getString(9))
 						.build());
 			}
 			logger.info("Successfully returned all reimbursements");
@@ -43,28 +43,56 @@ public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 		
 		return reimbs;
 	}
+	
+	public int getID(Reimbursement t) {
+		int id = 0;
+		String sql = "select reimb_id from reimbursement where "
+				+ "reimb_description = ? and reimb_author = get_author_id(?)"; // this will sanitize the input
+		try (Connection conn = ConnectionUtil.getInstance().getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, t.getDescription());
+			ps.setString(2, t.getAuthor());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				id = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return id;
+	}
 
 	@Override
 	public Reimbursement findById(Integer i) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public int updateStatus(int id, String status) {
+		int result = 0;
+		String sql = "update reimbursement set reimb_status_id = get_reimb_status(?), "
+				+ "reimb_resolved = current_timestamp where reimb_id = ?"; // this will sanitize the input
+		try (Connection conn = ConnectionUtil.getInstance().getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, status);
+			ps.setInt(2, id);
+			ps.executeUpdate();
+			return 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	@Override
 	public int update(Reimbursement t) {
-//		FileInputStream	fi = null;
 		String sql = "update reimbursement set reimb_amount = ?, reimb_description = ?, reimb_author = ?, "
 				+ "reimb_status_id = ?, reimb_type_id = get_reimb_type(?)"; // this will sanitize the input
 		try (Connection conn = ConnectionUtil.getInstance().getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)) {
 			ps.setInt(1, t.getAmount());
 			ps.setString(2, t.getDescription());
-//			try {
-//				fi = new FileInputStream("resources/blood.jpg");
-//			} catch (FileNotFoundException e) {
-//				// TODO: handle exception
-//			}
-//			ps.setBlob(3, fi);
 			ps.setInt(3, 4);
 			ps.setString(4, t.getStatus().getStatus());
 			ps.setString(5, t.getType().getType());
@@ -86,6 +114,7 @@ public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 				PreparedStatement ps = conn.prepareStatement(sql)) {
 			ps.setInt(1, t.getAmount());
 			ps.setString(2, t.getDescription());
+			//pontential code to add file/img
 //			try {
 //				fi = new FileInputStream("resources/blood.jpg");
 //			} catch (FileNotFoundException e) {
@@ -106,7 +135,16 @@ public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 
 	@Override
 	public int delete(Integer i) {
-		// TODO Auto-generated method stub
+		String sql = "delete from reimbursement where reimb_id = ?"; // this will sanitize the input
+		try (Connection conn = ConnectionUtil.getInstance().getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setInt(1, i);
+			ps.executeUpdate();
+			return 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return 0;
 	}
 	

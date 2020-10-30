@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>login</title>
+    <!-- my css path for app -->
+    <link rel="stylesheet" href="css/reimbursementCSS.css" />
+    <!-- my css -->
+    <!-- my css path for vsc testing -->
+    <link rel="stylesheet" href="../css/reimbursementCSS.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <!--Fontawesome CDN-->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <br /><br /><br /><br />
+    <div class="container">
+      <div class="d-flex justify-content-center">
+        <div class="l-card">
+          <div class="l-card-header">
+            <span>Sign In</span>
+            <span><strong>Slashers, Inc.</strong></span>
+          </div>
+          <div class="l-card-body">
+            <!-- <form action="home.page" method="post"> -->
+            <form name="loginF" id="loginF">
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><em class="fas fa-user"></em>
+                  </span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="usernameIn"
+                  id="usernameIn"
+                  placeholder="username"
+                />
+              </div>
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><em class="fas fa-key"></em>
+                  </span>
+                </div>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="passwordIn"
+                  id="passwordIN"
+                  placeholder="password"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="button"
+                  value="login"
+                  id="loginSubmit"
+                  class="btn float-right l_btn"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="l-card-footer">
+            <div class="d-flex justify-content-center">
+              <div>
+                <a href="#" style="display: block">Forgot your username?</a>
+                <a href="#" style="display: block">Forgot your password?</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <script src="js/login.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
