@@ -4,24 +4,24 @@ The Expense Reimbursement System (ERS) will manage the process of reimbursing em
 In spirit of halloween and my love of slashers and other horror films I decided to make that the theme of this ERS.
 
 # TECHNOLOGIES USED
-Java servlets
-Javascript
-Postgres sql
-AWS RDS
-AWS EC2 (Not fully implement yet)
-Jenkins
-Maven
-Tomcat
+* Java servlets
+* Javascript
+* Postgres sql
+* AWS RDS
+* AWS EC2 (Not fully implement yet)
+* Jenkins
+* Maven
+* Tomcat
 
 # FEATURES
-Utilizes session storage to manage user sessions
-User roles to determine options on a page
-secure password strorage
-users only see their expense request
+* Utilizes session storage to manage user sessions
+* User roles to determine options on a page
+* secure password strorage
+* users only see their expense request
 
 # TO-DO
-user profile page to allow for user info to be updated.
-allow for user to delete pass request (view only, will remain in database)
-update the request reimbursement page and view reimbursments
-implement project on ec2
+* user profile page to allow for user info to be updated.
+* allow for user to delete pass request (view only, will remain in database)
+* update the request reimbursement page and view reimbursments
+* implement project on ec2
 
